@@ -82,7 +82,7 @@ We will go through these events later. But for now, we will need to fill in the 
         executor = new LooperExecutor();
         executor.requestStart();
         String wsRoomUri = "wss://mykurentoserver:1234/room";
-        kurentoRoomAPI = new KurentoRoomAPI(executor, wsUri, this);
+        kurentoRoomAPI = new KurentoRoomAPI(executor, wsRoomUri, this);
         kurentoRoomAPI.connectWebSocket();
     }
 
@@ -184,7 +184,8 @@ A room with multiple users is not very useful if you cannot interact with each o
             Log.d(TAG, "Successfully connected to the room!");
             kurentoRoomAPI.sendMessage("MyRoomName", "MyUsername", "Hello room!", 125);
         } else if (response.getId() == 125) {
-            Log.d(TAG, "The server received my message!");        
+            Log.d(TAG, "The server received my message!");
+        }        
     }
     
 To receive messages other users write, it's time to use the ``onRoomNotification`` method. The difference between these two event handlers, ``onRoomNotification`` and ``onRoomResponse``, is that the former is for receiving events not triggered by you and do not have an id. Instead, they can be identifier by methods:
